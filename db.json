@@ -32,7 +32,7 @@
       "budget": 20000,
       "status": "Upcoming",
       "members": [
-        "harshagr123",
+        "harsh@gmail.com",
         "palak@789"
       ]
     },
@@ -45,9 +45,8 @@
       "budget": 50000,
       "status": "Upcoming",
       "members": [
-        "harshagr123",
-        "palak@789",
-        "AliceStar"
+        "harsh@gmail.com",
+        "palak@789"
       ]
     },
     {
@@ -59,6 +58,30 @@
       "budget": 10000,
       "members": [
         "palak@789"
+      ],
+      "status": "Upcoming"
+    },
+    {
+      "id": 5657,
+      "name": "Pune Trip",
+      "destination": "Pune",
+      "startDate": "2025-03-12",
+      "endDate": "2025-03-19",
+      "budget": 10000,
+      "members": [
+        "alice@example.com"
+      ],
+      "status": "Upcoming"
+    },
+    {
+      "id": 8506,
+      "name": "Singapore Trip",
+      "destination": "Singapore",
+      "startDate": "2025-05-07",
+      "endDate": "2025-05-14",
+      "budget": 100000,
+      "members": [
+        "harsh@gmail.com"
       ],
       "status": "Upcoming"
     }

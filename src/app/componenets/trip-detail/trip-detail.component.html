@@ -1,1 +1,167 @@
-<p>trip-detail works!</p>
+<div class="container mt-4">
+    <button class="btn btn-primary col-2 mb-3" (click) = "goBack()">Back</button>
+    <!-- Trip Summary Card -->
+    <div class="card shadow-lg p-4 mb-4">
+        <h2 class="text-center">🌍 {{ trip?.name }}</h2>
+        <p class="text-center text-muted">{{ trip?.destination }}</p>
+        <hr>
+        <div class="row text-center">
+            <div class="col-md-4">
+                <h5>📅 Start Date</h5>
+                <p>{{ trip?.startDate }}</p>
+            </div>
+            <div class="col-md-4">
+                <h5>🏁 End Date</h5>
+                <p>{{ trip?.endDate }}</p>
+            </div>
+            <div class="col-md-4">
+                <h5>💰 Budget</h5>
+                <p>₹{{ trip?.budget }}</p>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <span class="badge bg-success" *ngIf="trip?.status === 'Upcoming'">🚀 Upcoming</span>
+            <span class="badge bg-primary" *ngIf="trip?.status === 'Ongoing'">⏳ Ongoing</span>
+            <span class="badge bg-danger" *ngIf="trip?.status === 'Completed'">✅ Completed</span>
+        </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="d-flex justify-content-center gap-3 mb-3">
+        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addMemberModal">👥 Add People</button>
+        <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addDayModal">📅 Add Day</button>
+        <button class="btn btn-outline-warning" (click)="openAddExpenseModal()">💰 Add Expense</button>
+    </div>
+
+    <!-- Tabs for Sections -->
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link active" data-bs-toggle="tab" href="#itinerary">📍 Itinerary</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#expenses">💸 Expenses</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-bs-toggle="tab" href="#members">👥 Members</a>
+        </li>
+    </ul>
+
+    <div class="tab-content p-3">
+        <!-- Itinerary Section -->
+        <div class="tab-pane fade show active" id="itinerary">
+            <h5 class="mt-3">📅 Daily Plan</h5>
+            <ul class="list-group mt-2">
+                <li class="list-group-item d-flex justify-content-between" *ngFor="let day of trip?.itinerary">
+                    Day {{ day.day }}: {{ day.activities }}
+                    <button class="btn btn-sm btn-danger" (click)="removeDay(day.day)">🗑 Remove</button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Expenses Section -->
+        <div class="tab-pane fade" id="expenses">
+            <h5 class="mt-3">💰 Trip Expenses</h5>
+            <ul class="list-group mt-2">
+                <li class="list-group-item d-flex justify-content-between" *ngFor="let expense of trip?.expenses">
+                    {{ expense.description }} - ₹{{ expense.amount }}
+                    <button class="btn btn-sm btn-danger" (click)="removeExpense(expense.id)">🗑 Remove</button>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Members Section -->
+        <div class="tab-pane fade" id="members">
+            <h5 class="mt-3">👥 Members</h5>
+            <ul class="list-group mt-2">
+                <li class="list-group-item d-flex justify-content-between" *ngFor="let member of trip?.members">
+                    {{ member }}
+                    <button class="btn btn-sm btn-danger" (click)="removeMember(member)">🗑 Remove</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<!-- The Modal -->
+<div class="modal fade" id="addMemberModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabel">Add a Member</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <label for="memberEmail">Enter Member Email:</label>
+          <input type="email" class="form-control" id="memberEmail" placeholder="example@email.com" [(ngModel)]="newMemberEmail">
+        </div>
+        
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-success" (click)="addMember()">Add</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="addDayModal" tabindex="-1" aria-labelledby="addDayModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h5 class="modal-title" id="addDayModalLabel">Add a Day to Trip</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        
+        <!-- Modal Body -->
+        <div class="modal-body">
+          <form [formGroup]="addDayForm">
+            <!-- Date -->
+            <div class="mb-3">
+              <label class="form-label">Date</label>
+              <input type="date" class="form-control" formControlName="date">
+            </div>
+  
+            <!-- Activity/Point -->
+            <div class="mb-3">
+              <label class="form-label">Activity/Point</label>
+              <input type="text" class="form-control" formControlName="activity" placeholder="E.g., Beach visit, Museum tour">
+            </div>
+  
+            <!-- Time -->
+            <div class="mb-3">
+              <label class="form-label">Time</label>
+              <input type="time" class="form-control" formControlName="time">
+            </div>
+  
+            <!-- Description -->
+            <div class="mb-3">
+              <label class="form-label">Description</label>
+              <textarea class="form-control" formControlName="description" rows="3" placeholder="Enter details..."></textarea>
+            </div>
+  
+            <!-- Location (Optional) -->
+            <div class="mb-3">
+              <label class="form-label">Location (Optional)</label>
+              <input type="text" class="form-control" formControlName="location" placeholder="E.g., Goa Beach, Eiffel Tower">
+            </div>
+          </form>
+        </div>
+        
+        <!-- Modal Footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-success" (click)="addDay()">Add</button>
+        </div>
+  
+      </div>
+    </div>
+  </div>
