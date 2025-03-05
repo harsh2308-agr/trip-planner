@@ -1,0 +1,67 @@
+<div class="container mt-3">
+    <div class="card shadow-lg p-4">
+      <h2 class="text-center mb-3">🌍 Create a New Trip</h2>
+        
+      <form [formGroup]="tripForm" (ngSubmit)="onSubmit()">
+        <!-- Trip Name -->
+        <div class="mb-3">
+          <label class="form-label">Trip Name</label>
+          <input type="text" class="form-control" formControlName="name" placeholder="Enter trip name">
+          <div class="text-danger" *ngIf="tripForm.controls['name'].invalid && tripForm.controls['name'].touched">
+            Trip name is required (Min 3 characters).
+          </div>
+        </div>
+  
+        <!-- Destination -->
+        <div class="mb-3">
+          <label class="form-label">Destination</label>
+          <input type="text" class="form-control" formControlName="destination" placeholder="Enter destination">
+          <div class="text-danger" *ngIf="tripForm.controls['destination'].invalid && tripForm.controls['destination'].touched">
+            Destination is required.
+          </div>
+        </div>
+  
+        <!-- Start Date -->
+        <div class="mb-3">
+          <label class="form-label">Start Date</label>
+          <input type="date" class="form-control" formControlName="startDate">
+          <div class="text-danger" *ngIf="tripForm.controls['startDate'].invalid && tripForm.controls['startDate'].touched">
+            Start date is required.
+          </div>
+        </div>
+  
+        <!-- End Date -->
+        <div class="mb-3">
+          <label class="form-label">End Date</label>
+          <input type="date" class="form-control" formControlName="endDate">
+          <div class="text-danger" *ngIf="tripForm.controls['endDate'].invalid && tripForm.controls['endDate'].touched">
+            End date is required and must be after start date.
+          </div>
+        </div>
+  
+        <!-- Budget -->
+        <div class="mb-3">
+          <label class="form-label">Budget (₹)</label>
+          <input type="number" class="form-control" formControlName="budget" placeholder="Enter budget">
+          <div class="text-danger" *ngIf="tripForm.controls['budget'].invalid && tripForm.controls['budget'].touched">
+            Budget should be at least ₹1000.
+          </div>
+        </div>
+  
+        <!-- Members (comma-separated) -->
+        <div class="mb-3">
+          <label class="form-label">Members (comma-separated emails)</label>
+          <input type="text" class="form-control" formControlName="members" placeholder="e.g. user1@example.com, user2@example.com">
+          <div class="text-danger" *ngIf="tripForm.controls['members'].invalid && tripForm.controls['members'].touched">
+            At least one member is required.
+          </div>
+        </div>
+  
+        <!-- Submit Button -->
+        <button type="submit" class="btn btn-success w-100" [disabled]="tripForm.invalid">
+          🚀 Create Trip
+        </button>
+      </form>
+    </div>
+  </div>
+  

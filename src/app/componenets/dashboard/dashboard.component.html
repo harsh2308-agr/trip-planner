@@ -1,0 +1,37 @@
+<app-navbar></app-navbar>
+
+<div class="container mt-4">
+    <h2>Welcome to Trip Planner!</h2>
+    <p>Manage your trips, expenses, and groups here.</p>
+
+    <div *ngIf="!showCreateTrip" class="text-end mb-3">
+        <button class="btn btn-primary" (click)="showCreateTrip = !showCreateTrip">➕ Create Trip</button>
+    </div>
+
+    <!-- Show CreateTripComponent when showCreateTrip is true -->
+    <div class="container mt-4" *ngIf="showCreateTrip">
+        <app-create-trip></app-create-trip>
+    </div>
+
+    <div *ngIf = "!showCreateTrip" class="card shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="card-body text-center">
+            <h2 class="card-title">Hey, {{ user?.name }}! 🎉</h2>
+            <p class="card-text"><strong>Email:</strong> {{ user?.email }}</p>
+        </div>
+
+        <h3>📌 Your Trips</h3>
+        <div *ngIf="userTrips.length; else noTrips">
+            <ul class="list-group">
+                <li class="list-group-item mb-3" *ngFor="let trip of userTrips">
+                    🌍 <strong>{{ trip.name }}</strong> - {{ trip.destination }} ({{ trip.status }})
+                    <br>
+                    🏷️ Budget: ₹{{ trip.budget }} | 📅 {{ trip.startDate }} - {{ trip.endDate }}
+                </li>
+            </ul>
+        </div>
+
+        <ng-template #noTrips>
+            <p>No trips found. <a routerLink="/trips">Plan a new trip</a></p>
+        </ng-template>
+    </div>
+</div>

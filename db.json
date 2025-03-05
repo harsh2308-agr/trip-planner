@@ -1,0 +1,116 @@
+{
+  "users": [
+    {
+      "id": 0,
+      "userId": "AliceStar",
+      "name": "Alice",
+      "email": "alice@example.com",
+      "password": "alice123"
+    },
+    {
+      "id": 1,
+      "name": "Harsh Agarawal",
+      "email": "harsh@gmail.com",
+      "userId": "harshagr123",
+      "password": "Harsh2123"
+    },
+    {
+      "id": 2,
+      "name": "Palak Agrawal",
+      "email": "PalakAgr",
+      "userId": "palak789",
+      "password": "palak@789"
+    }
+  ],
+  "trips": [
+    {
+      "id": 1,
+      "name": "Goa Getaway",
+      "destination": "Goa",
+      "startDate": "2024-05-10",
+      "endDate": "2024-05-15",
+      "budget": 20000,
+      "status": "Upcoming",
+      "members": [
+        "harshagr123",
+        "palak@789"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Kerala Trip",
+      "destination": "Kerala",
+      "startDate": "2025-09-01",
+      "endDate": "2025-09-10",
+      "budget": 50000,
+      "status": "Upcoming",
+      "members": [
+        "harshagr123",
+        "palak@789",
+        "AliceStar"
+      ]
+    },
+    {
+      "id": 9800,
+      "name": "Pune Trip",
+      "destination": "Pune",
+      "startDate": "2025-04-15",
+      "endDate": "2025-04-12",
+      "budget": 10000,
+      "members": [
+        "palak@789"
+      ],
+      "status": "Upcoming"
+    }
+  ],
+  "expenses": [
+    {
+      "expenseId": 101,
+      "name": "Hotel Stay",
+      "amount": 5000,
+      "paidBy": {
+        "id": 1,
+        "name": "Alice",
+        "email": "alice@example.com"
+      },
+      "splitAmong": [
+        {
+          "id": 1,
+          "name": "Alice",
+          "email": "alice@example.com"
+        },
+        {
+          "id": 2,
+          "name": "Bob",
+          "email": "bob@example.com"
+        }
+      ],
+      "tripId": 1,
+      "date": "2024-05-10"
+    },
+    {
+      "expenseId": 102,
+      "name": "Dinner",
+      "amount": 2000,
+      "paidBy": {
+        "id": 2,
+        "name": "Bob",
+        "email": "bob@example.com"
+      },
+      "splitAmong": [
+        {
+          "id": 1,
+          "name": "Alice",
+          "email": "alice@example.com"
+        },
+        {
+          "id": 2,
+          "name": "Bob",
+          "email": "bob@example.com"
+        }
+      ],
+      "tripId": 1,
+      "date": "2024-05-11"
+    }
+  ]
+}
