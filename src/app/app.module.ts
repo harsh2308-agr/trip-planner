@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { DashboardComponent } from './componenets/dashboard/dashboard.component';
 import { NavbarComponent } from './componenets/navbar/navbar.component';
 import { CreateTripComponent } from './componenets/create-trip/create-trip.component';
+import { TripService } from './services/trip.service';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,7 @@ import { CreateTripComponent } from './componenets/create-trip/create-trip.compo
     BrowserAnimationsModule,
     HttpClientModule 
   ],
-  providers: [AuthService],
+  providers: [AuthService, TripService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

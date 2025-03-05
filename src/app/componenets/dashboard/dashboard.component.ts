@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Trip } from 'src/app/models/trip.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,6 +12,8 @@ export class DashboardComponent implements OnInit {
   user: any;
   userTrips: any[] = [];
   showCreateTrip = false;
+  displayTrip= false;
+  selectedTrip: Trip | undefined;
   constructor(private http: HttpClient,  private router: Router) {}
 
   ngOnInit() {
@@ -22,10 +25,20 @@ export class DashboardComponent implements OnInit {
     }
   }
 
+  toggleShowCreateTrip(event: boolean){
+    this.showCreateTrip = event;
+    this.displayTrip = event;
+  }
+
+  toggleDisplayTrip(event: boolean){
+    this.displayTrip = event;
+    this.showCreateTrip = event;
+  }
+
   loadUserTrips() {
     this.http.get<any[]>('http://localhost:3000/trips').subscribe((trips) => {
       // Filter trips where user is a member
-      this.userTrips = trips.filter((trip) => trip.members.includes(this.user.userId));
+      this.userTrips = trips.filter((trip) => trip.members.includes(this.user.email));
   
       // Sort trips by status: Completed first, then Ongoing, then Upcoming
       this.userTrips.sort((a, b) => this.getStatusPriority(a.status) - this.getStatusPriority(b.status));
@@ -40,5 +53,10 @@ export class DashboardComponent implements OnInit {
     };
   
     return statusOrder[status]; // No more TypeScript error
+  }
+
+  checkTrip(trip: Trip){
+    this.selectedTrip = trip;
+    this.displayTrip = true;
   }
 }

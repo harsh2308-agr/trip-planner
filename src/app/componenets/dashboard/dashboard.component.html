@@ -10,28 +10,39 @@
 
     <!-- Show CreateTripComponent when showCreateTrip is true -->
     <div class="container mt-4" *ngIf="showCreateTrip">
-        <app-create-trip></app-create-trip>
+        <app-create-trip (back)=toggleShowCreateTrip($event)></app-create-trip>
     </div>
 
-    <div *ngIf = "!showCreateTrip" class="card shadow-lg p-3 mb-5 bg-white rounded">
+    <div *ngIf="!showCreateTrip" class="card shadow-lg p-3 mb-5 bg-white rounded">
         <div class="card-body text-center">
             <h2 class="card-title">Hey, {{ user?.name }}! 🎉</h2>
             <p class="card-text"><strong>Email:</strong> {{ user?.email }}</p>
         </div>
 
         <h3>📌 Your Trips</h3>
-        <div *ngIf="userTrips.length; else noTrips">
+        <div *ngIf="userTrips.length && !displayTrip">
             <ul class="list-group">
-                <li class="list-group-item mb-3" *ngFor="let trip of userTrips">
-                    🌍 <strong>{{ trip.name }}</strong> - {{ trip.destination }} ({{ trip.status }})
-                    <br>
-                    🏷️ Budget: ₹{{ trip.budget }} | 📅 {{ trip.startDate }} - {{ trip.endDate }}
+                <li class="list-group-item mb-3 d-flex flex-column position-relative" *ngFor="let trip of userTrips">
+                    <div>
+                        🌍 <strong>{{ trip.name }}</strong> - {{ trip.destination }} ({{ trip.status }})
+                        <br>
+                        🏷️ Budget: ₹{{ trip.budget }} | 📅 {{ trip.startDate }} - {{ trip.endDate }}
+                    </div>
+
+                    <!-- Check Trip Button at Bottom Right -->
+                    <button class="btn btn-primary position-absolute bottom-0 end-0 m-2" (click)="checkTrip(trip)">
+                        Check Trip
+                    </button>
                 </li>
+
             </ul>
         </div>
+        <div *ngIf="displayTrip">
+            <app-trip-detail [trip]="selectedTrip" (back)="toggleDisplayTrip($event)"></app-trip-detail>
+        </div>
 
-        <ng-template #noTrips>
-            <p>No trips found. <a routerLink="/trips">Plan a new trip</a></p>
-        </ng-template>
+        <div *ngIf="userTrips.length==0">
+            <p>No trips found. Plan a new trip</p>
+        </div>
     </div>
 </div>

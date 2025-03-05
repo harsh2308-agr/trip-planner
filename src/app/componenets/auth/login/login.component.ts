@@ -23,7 +23,7 @@ export class LoginComponent {
     this.authService.login(this.userId, this.password).subscribe(user => {
       if (user) {
         localStorage.setItem('loggedInUser', JSON.stringify(user)); // Store session
-        this.router.navigate(['/dashboard']); // Redirect to Dashboard
+        this.router.navigate(['/trip-planner/dashboard']); // Redirect to Dashboard
       } else {
         this.errorMessage = 'Invalid credentials. Please try again.';
       }

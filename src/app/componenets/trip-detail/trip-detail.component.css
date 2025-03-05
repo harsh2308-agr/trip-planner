@@ -1,0 +1,13 @@
+.card {
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btn-outline-primary, .btn-outline-success, .btn-outline-warning {
+    min-width: 150px;
+}
+
+.list-group-item {
+    border-radius: 8px;
+    margin-bottom: 8px;
+}

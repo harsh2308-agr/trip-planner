@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { Trip } from 'src/app/models/trip.model';
+import { TripService } from 'src/app/services/trip.service';
 
 @Component({
   selector: 'app-create-trip',
@@ -12,8 +11,11 @@ import { Trip } from 'src/app/models/trip.model';
 export class CreateTripComponent {
   tripForm: FormGroup;
   backtoDashboard = false;
-
-  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
+  @Output() back = new EventEmitter<boolean>();
+  constructor(
+    private fb: FormBuilder, 
+    private tripService: TripService
+  ) {
     this.tripForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       destination: ['', Validators.required],
@@ -24,20 +26,46 @@ export class CreateTripComponent {
     });
   }
 
+  goBack() {
+    this.back.emit(false);
+  }
+
   onSubmit() {
     if (this.tripForm.invalid) return;
-    
-    const formData = this.tripForm.value;
-    const newTrip: Trip = {
-      id: Math.floor(Math.random() * 10000),
-      ...formData,
-      members: formData.members.split(',').map((m: string) => m.trim()), // Convert members to array
-      status: 'Upcoming'
-    };
 
-    this.http.post('http://localhost:3000/trips', newTrip).subscribe(() => {
-      alert('Trip Created Successfully!');
-      this.router.navigate(['/dashboard']); // Redirect to dashboard
+    const formData = this.tripForm.value;
+    const currentDate = new Date();
+    const startDate = new Date(formData.startDate);
+    const endDate = new Date(formData.endDate);
+
+    // Determine trip status based on dates
+    let status: 'Invalid' | 'Upcoming' | 'Ongoing' | 'Completed';
+    if (endDate < currentDate) {
+        status = 'Invalid';
+    } else if (startDate > currentDate) {
+        status = 'Upcoming';
+    } else {
+        status = 'Ongoing';
+    }
+
+    // Convert members to array
+    const enteredMembers = formData.members.split(',').map((m: string) => m.trim());
+
+    this.tripService.getUsers().subscribe(users => {
+        const validMembers = enteredMembers.filter((email: any) => users.some(user => user.email === email));
+        if (validMembers.length === 0) {
+            alert('No valid members found. Please enter existing user emails.');
+            return;
+        }
+        const newTrip: Trip = {
+            id: Math.floor(Math.random() * 10000),
+            ...formData,
+            members: validMembers,
+            status
+        };
+        this.tripService.createTrip(newTrip);
+        this.goBack();
     });
-  }
+}
+
 }
