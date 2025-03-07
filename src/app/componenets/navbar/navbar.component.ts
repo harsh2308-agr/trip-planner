@@ -11,7 +11,7 @@ export class NavbarComponent {
   constructor(private readonly authService: AuthService, private readonly router: Router){}
   
   logout() {
-    localStorage.removeItem('isLoggedIn'); // Clear login state
+    localStorage.removeItem('loggedInUser'); // Clear login state
     this.router.navigate(['/trip-planner/login']); // Redirect properly
   }
 }

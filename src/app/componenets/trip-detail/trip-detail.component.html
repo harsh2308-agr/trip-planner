@@ -1,5 +1,6 @@
 <div class="container mt-4">
-    <button class="btn btn-primary col-2 mb-3" (click) = "goBack()">Back</button>
+    <app-alert *ngIf="alertMessage" [message]="alertMessage" [type]="alertType"></app-alert>
+    <button class="btn btn-primary col-2 mb-3" (click)="goBack()">Back</button>
     <!-- Trip Summary Card -->
     <div class="card shadow-lg p-4 mb-4">
         <h2 class="text-center">🌍 {{ trip?.name }}</h2>
@@ -28,7 +29,8 @@
 
     <!-- Action Buttons -->
     <div class="d-flex justify-content-center gap-3 mb-3">
-        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addMemberModal">👥 Add People</button>
+        <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#addMemberModal">👥 Add
+            People</button>
         <button class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addDayModal">📅 Add Day</button>
         <button class="btn btn-outline-warning" (click)="openAddExpenseModal()">💰 Add Expense</button>
     </div>
@@ -51,12 +53,19 @@
         <div class="tab-pane fade show active" id="itinerary">
             <h5 class="mt-3">📅 Daily Plan</h5>
             <ul class="list-group mt-2">
-                <li class="list-group-item d-flex justify-content-between" *ngFor="let day of trip?.itinerary">
-                    Day {{ day.day }}: {{ day.activities }}
-                    <button class="btn btn-sm btn-danger" (click)="removeDay(day.day)">🗑 Remove</button>
+                <li class="list-group-item" *ngFor="let day of trip?.itinerary">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>Day {{ day.day }} - {{ day.date | date: 'longDate' }}</strong>
+                            <p class="mb-1">{{ day.location }}</p>
+                            <p><i class="text-muted">{{ day.description }}</i></p>
+                        </div>
+                        <button class="btn btn-sm btn-danger" (click)="removeDay(day.day)">🗑 Remove</button>
+                    </div>
                 </li>
             </ul>
         </div>
+
 
         <!-- Expenses Section -->
         <div class="tab-pane fade" id="expenses">
@@ -85,83 +94,77 @@
 
 <!-- The Modal -->
 <div class="modal fade" id="addMemberModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalLabel">Add a Member</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        
-        <!-- Modal Body -->
-        <div class="modal-body">
-          <label for="memberEmail">Enter Member Email:</label>
-          <input type="email" class="form-control" id="memberEmail" placeholder="example@email.com" [(ngModel)]="newMemberEmail">
-        </div>
-        
-        <!-- Modal Footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-success" (click)="addMember()">Add</button>
-        </div>
-  
-      </div>
-    </div>
-  </div>
 
-
-  <div class="modal fade" id="addDayModal" tabindex="-1" aria-labelledby="addDayModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content">
-        
-        <!-- Modal Header -->
-        <div class="modal-header">
-          <h5 class="modal-title" id="addDayModalLabel">Add a Day to Trip</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel">Add a Member</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <label for="memberEmail">Enter Member Email:</label>
+                <input type="email" class="form-control" id="memberEmail" placeholder="example@email.com"
+                    [(ngModel)]="newMemberEmail">
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" (click)="addMember()">Add</button>
+            </div>
+
         </div>
-        
-        <!-- Modal Body -->
-        <div class="modal-body">
-          <form [formGroup]="addDayForm">
-            <!-- Date -->
-            <div class="mb-3">
-              <label class="form-label">Date</label>
-              <input type="date" class="form-control" formControlName="date">
-            </div>
-  
-            <!-- Activity/Point -->
-            <div class="mb-3">
-              <label class="form-label">Activity/Point</label>
-              <input type="text" class="form-control" formControlName="activity" placeholder="E.g., Beach visit, Museum tour">
-            </div>
-  
-            <!-- Time -->
-            <div class="mb-3">
-              <label class="form-label">Time</label>
-              <input type="time" class="form-control" formControlName="time">
-            </div>
-  
-            <!-- Description -->
-            <div class="mb-3">
-              <label class="form-label">Description</label>
-              <textarea class="form-control" formControlName="description" rows="3" placeholder="Enter details..."></textarea>
-            </div>
-  
-            <!-- Location (Optional) -->
-            <div class="mb-3">
-              <label class="form-label">Location (Optional)</label>
-              <input type="text" class="form-control" formControlName="location" placeholder="E.g., Goa Beach, Eiffel Tower">
-            </div>
-          </form>
-        </div>
-        
-        <!-- Modal Footer -->
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" class="btn btn-success" (click)="addDay()">Add</button>
-        </div>
-  
-      </div>
     </div>
-  </div>
+</div>
+
+<div class="modal fade" id="addDayModal" tabindex="-1" aria-labelledby="addDayModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="addDayModalLabel">Add a Day to Trip</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <form [formGroup]="addDayForm">
+                    <div class="mb-3">
+                        <label class="form-label">Date</label>
+                        <input type="date" class="form-control" formControlName="date">
+                    </div>
+                
+                    <div class="mb-3">
+                        <label class="form-label">Time</label>
+                        <input type="time" class="form-control" formControlName="time">
+                    </div>
+                
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" formControlName="description" rows="2"
+                            placeholder="Enter details..."></textarea>
+                    </div>
+                
+                    <div class="mb-3">
+                        <label class="form-label">Location (Optional)</label>
+                        <input type="text" class="form-control" formControlName="location"
+                            placeholder="E.g., Goa Beach, Eiffel Tower">
+                    </div>
+                </form>
+                
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-success" (click)="addDay()">Add</button>
+            </div>
+
+        </div>
+    </div>
+</div>

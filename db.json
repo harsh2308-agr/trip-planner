@@ -1,30 +1,37 @@
 {
   "users": [
     {
-      "id": 0,
+      "id": "0",
       "userId": "AliceStar",
       "name": "Alice",
       "email": "alice@example.com",
       "password": "alice123"
     },
     {
-      "id": 1,
+      "id": "1",
       "name": "Harsh Agarawal",
       "email": "harsh@gmail.com",
       "userId": "harshagr123",
       "password": "Harsh2123"
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Palak Agrawal",
       "email": "PalakAgr",
       "userId": "palak789",
       "password": "palak@789"
+    },
+    {
+      "id": "3",
+      "name": "Raj Sharma",
+      "email": "Raj@yahoo.com",
+      "userId": "Raj966",
+      "password": "Raj@789"
     }
   ],
   "trips": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Goa Getaway",
       "destination": "Goa",
       "startDate": "2024-05-10",
@@ -34,10 +41,36 @@
       "members": [
         "harsh@gmail.com",
         "palak@789"
+      ],
+      "itinerary": [
+        {
+          "day": 1,
+          "date": "2025-03-15T00:00:00.000Z",
+          "activity": "",
+          "time": "02:28",
+          "description": "Memory recreate day",
+          "location": "Baga Beach"
+        },
+        {
+          "day": 2,
+          "date": "2025-03-16T00:00:00.000Z",
+          "activity": "",
+          "time": "02:30",
+          "description": "Full day fun",
+          "location": "Dona paula Point"
+        },
+        {
+          "day": 3,
+          "date": "2025-03-17T00:00:00.000Z",
+          "activity": "",
+          "time": "12:34",
+          "description": "Paradise Beach",
+          "location": "Chill Mode on"
+        }
       ]
     },
     {
-      "id": 2,
+      "id": "2",
       "name": "Kerala Trip",
       "destination": "Kerala",
       "startDate": "2025-09-01",
@@ -50,7 +83,7 @@
       ]
     },
     {
-      "id": 9800,
+      "id": "9800",
       "name": "Pune Trip",
       "destination": "Pune",
       "startDate": "2025-04-15",
@@ -62,7 +95,7 @@
       "status": "Upcoming"
     },
     {
-      "id": 5657,
+      "id": "5657",
       "name": "Pune Trip",
       "destination": "Pune",
       "startDate": "2025-03-12",
@@ -74,7 +107,7 @@
       "status": "Upcoming"
     },
     {
-      "id": 8506,
+      "id": "8506",
       "name": "Singapore Trip",
       "destination": "Singapore",
       "startDate": "2025-05-07",
@@ -109,7 +142,8 @@
         }
       ],
       "tripId": 1,
-      "date": "2024-05-10"
+      "date": "2024-05-10",
+      "id": "3b75"
     },
     {
       "expenseId": 102,
@@ -133,7 +167,8 @@
         }
       ],
       "tripId": 1,
-      "date": "2024-05-11"
+      "date": "2024-05-11",
+      "id": "d253"
     }
   ]
 }

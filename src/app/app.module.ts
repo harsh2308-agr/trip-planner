@@ -19,6 +19,7 @@ import { DashboardComponent } from './componenets/dashboard/dashboard.component'
 import { NavbarComponent } from './componenets/navbar/navbar.component';
 import { CreateTripComponent } from './componenets/create-trip/create-trip.component';
 import { TripService } from './services/trip.service';
+import { AlertComponent } from './componenets/alert/alert.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { TripService } from './services/trip.service';
     SignupComponent,
     DashboardComponent,
     NavbarComponent,
-    CreateTripComponent
+    CreateTripComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
