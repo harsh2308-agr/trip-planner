@@ -2,7 +2,7 @@ export interface Trip {
   id: number;
   name: string;
   destination: string;
-  startDate: string;  // Format: YYYY-MM-DD
+  startDate: string;  
   endDate: string;
   budget: number;
   status: 'Upcoming' | 'Ongoing' | 'Completed';
@@ -23,10 +23,9 @@ export interface Expense {
 // Itinerary model
 export interface ItineraryItem {
   day: number;
-  activities: Activity[];
-}
-
-export interface Activity{
-  name: string;
-  id: string
+  date: Date;
+  activity: string;
+  time: string;
+  description: string;
+  location: string;
 }

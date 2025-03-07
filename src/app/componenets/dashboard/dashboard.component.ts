@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
   userTrips: any[] = [];
   showCreateTrip = false;
   displayTrip= false;
-  selectedTrip: Trip | undefined;
+  selectedTrip!: Trip;
   constructor(private http: HttpClient,  private router: Router) {}
 
   ngOnInit() {
