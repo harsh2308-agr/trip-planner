@@ -1,4 +1,4 @@
-<div *ngIf="isVisible" class="alert alert-{{ type }} alert-dismissible fade show" role="alert">
+<div *ngIf="isVisible" class="alert alert-{{ type === 'success' ? 'success' : 'danger' }} alert-dismissible fade show" role="alert">
     <strong>{{ type === 'success' ? '✔ Success!' : '❌ Error!' }}</strong> {{ message }}
     <button type="button" class="btn-close" (click)="closeAlert()" aria-label="Close"></button>
-  </div>
+</div>

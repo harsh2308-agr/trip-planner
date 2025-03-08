@@ -29,3 +29,30 @@ export interface ItineraryItem {
   description: string;
   location: string;
 }
+export interface TripOverview {
+  destination?: string;
+  dates?: string; // Renamed from duration to align with API response
+  travelers?: string;
+  accommodation?: string;
+  preferences?: string;
+  budget?: string;
+}
+
+export interface BudgetBreakdown {
+  [key: string]: string;
+}
+
+export interface DayPlan {
+  dayNumber: number;
+  title: string;
+  morning: string;  // Made required
+  afternoon: string; // Made required
+  evening: string;   // Made required
+}
+
+export interface Itinerary {
+  tripOverview: TripOverview;
+  budgetBreakdown: BudgetBreakdown;
+  dayWiseItinerary: DayPlan[];
+  travelTips: string[];
+}
