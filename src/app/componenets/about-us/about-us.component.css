@@ -1,0 +1,19 @@
+.star {
+    font-size: 24px;
+    cursor: pointer;
+    color: gray;
+  }
+  
+  .star.selected {
+    color: gold;
+  }
+
+  .about-us-background {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.3)), 
+                     url('/assets/aboutUs.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+    padding: 30px 0;
+  }

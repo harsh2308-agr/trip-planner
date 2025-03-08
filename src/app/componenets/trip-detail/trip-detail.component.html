@@ -3,21 +3,21 @@
     <button class="btn btn-primary col-2 mb-3" (click)="goBack()">Back</button>
     <!-- Trip Summary Card -->
     <div class="card shadow-lg p-4 mb-4">
-        <h2 class="text-center">🌍 {{ trip?.name }}</h2>
-        <p class="text-center text-muted">{{ trip?.destination }}</p>
+        <h2 class="text-center">🌍 {{ trip.name }}</h2>
+        <p class="text-center text-muted">{{ trip.destination }}</p>
         <hr>
         <div class="row text-center">
             <div class="col-md-4">
                 <h5>📅 Start Date</h5>
-                <p>{{ trip?.startDate }}</p>
+                <p>{{ trip.startDate }}</p>
             </div>
             <div class="col-md-4">
                 <h5>🏁 End Date</h5>
-                <p>{{ trip?.endDate }}</p>
+                <p>{{ trip.endDate }}</p>
             </div>
             <div class="col-md-4">
                 <h5>💰 Budget</h5>
-                <p>₹{{ trip?.budget }}</p>
+                <p>₹{{ trip.budget }}</p>
             </div>
         </div>
         <div class="text-center mt-3">

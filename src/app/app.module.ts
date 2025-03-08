@@ -20,6 +20,8 @@ import { NavbarComponent } from './componenets/navbar/navbar.component';
 import { CreateTripComponent } from './componenets/create-trip/create-trip.component';
 import { TripService } from './services/trip.service';
 import { AlertComponent } from './componenets/alert/alert.component';
+import { SuperTripComponent } from './componenets/super-trip/super-trip.component';
+import { AboutUsComponent } from './componenets/about-us/about-us.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { AlertComponent } from './componenets/alert/alert.component';
     DashboardComponent,
     NavbarComponent,
     CreateTripComponent,
-    AlertComponent
+    AlertComponent,
+    SuperTripComponent,
+    AboutUsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-      <a class="navbar-brand" routerLink="/dashboard">Trip Planner 🏖️</a>
+      <a class="navbar-brand" [routerLink]="'/trip-planner/dashboard'">Trip Planner 🏖️</a>
       
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
@@ -9,16 +9,13 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" routerLink="trip-planner/dashboard">🏠 Dashboard</a>
+            <a class="nav-link" [routerLink]="'/trip-planner/dashboard'">🏠 Dashboard</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="trip-planner/trips">🌍 My Trips</a>
+            <a class="nav-link" [routerLink]="'/trip-planner/superTrip'">🌍Super Trip Generator</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="trip-planner/groups">👥 My Groups</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" routerLink="trip-planner/expenses">💰 Expenses</a>
+            <a class="nav-link" [routerLink]="'/trip-planner/aboutUs'">📖 About US</a>
           </li>
           <li class="nav-item">
             <button class="btn btn-danger ms-3" (click)="logout()"> Logout </button>

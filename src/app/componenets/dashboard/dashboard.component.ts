@@ -14,6 +14,8 @@ export class DashboardComponent implements OnInit {
   showCreateTrip = false;
   displayTrip= false;
   selectedTrip!: Trip;
+  private slideshowInterval: any;
+
   constructor(private http: HttpClient,  private router: Router) {}
 
   ngOnInit() {

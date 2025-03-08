@@ -1,0 +1,149 @@
+<app-navbar></app-navbar>
+<div class="super-trip-background">
+    <div class="container mt-5">
+        <h2 class="mb-4 text-center" style="color: white">Generate Your Trip using AI</h2>
+    
+        <app-alert *ngIf="alertMessage" [message]="alertMessage" [type]="alertType"></app-alert>
+    
+        <form [formGroup]="tripForm" class="shadow p-4 rounded bg-white">
+            <div class="mb-3">
+                <label class="form-label fw-bold">Destination</label>
+                <input type="text" class="form-control" formControlName="destination" placeholder="Enter destination">
+            </div>
+    
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Start Date</label>
+                    <input type="date" class="form-control" formControlName="startDate">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">End Date</label>
+                    <input type="date" class="form-control" formControlName="endDate">
+                </div>
+            </div>
+    
+            <div class="mb-3">
+                <label class="form-label fw-bold">Budget</label>
+                <input type="number" class="form-control" formControlName="budget" placeholder="Enter budget">
+            </div>
+    
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Number of Travelers</label>
+                    <input type="number" class="form-control" formControlName="travelers"
+                        placeholder="Enter number of travelers">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Accommodation Type</label>
+                    <select class="form-control" formControlName="accommodation">
+                        <option>Hotel</option>
+                        <option>Hostel</option>
+                        <option>Resort</option>
+                        <option>Airbnb</option>
+                    </select>
+                </div>
+            </div>
+    
+            <div class="mb-3">
+                <label class="form-label fw-bold">Preferences</label>
+                <select class="form-control" formControlName="preferences">
+                    <option>Adventure</option>
+                    <option>Relaxation</option>
+                    <option>Culture</option>
+                    <option>Food & Drinks</option>
+                </select>
+            </div>
+    
+            <button type="button" class="btn btn-success w-100" (click)="generateTrip()" [disabled]="loading">
+                {{ loading ? 'Generating...' : 'Generate Trip' }}
+            </button>
+        </form>
+    
+        <div *ngIf="loading" class="text-center mt-3">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p style="color:white">Generating your trip, please wait...</p>
+        </div>
+    
+    </div>
+    
+    <div *ngIf="!loading && showRes" class="container mt-4">
+        <div class="card p-4 shadow">
+            <h2 class="text-center text-primary">
+                {{ itinerary.tripOverview.destination }} ({{ itinerary.tripOverview.dates }})
+            </h2>
+    
+            <!-- Trip Overview -->
+            <div class="row mt-4">
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">🏨 Stay</h5>
+                            <p class="card-text"><strong>{{ itinerary.tripOverview.accommodation }}</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">👥 Travelers</h5>
+                            <p class="card-text"><strong>{{ itinerary.tripOverview.travelers }}</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-center">
+                        <div class="card-body">
+                            <h5 class="card-title">💰 Budget</h5>
+                            <p class="card-text"><strong>{{ itinerary.tripOverview.budget }}</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Budget Breakdown -->
+            <div class="mt-4 p-3 bg-light border rounded">
+                <h4>💸 Budget Breakdown</h4>
+                <ul>
+                    <li *ngFor="let key of itinerary.budgetBreakdown | keyvalue">
+                        <strong>{{ key.key | titlecase }}:</strong> {{ key.value }}
+                    </li>
+                </ul>
+            </div>
+    
+            <!-- Day-wise Itinerary -->
+            <div class="mt-5">
+                <h3 class="text-center">📅 Day-wise Itinerary</h3>
+                <div class="accordion mt-3" id="tripAccordion">
+                    <div *ngFor="let day of itinerary.dayWiseItinerary; let i = index" class="accordion-item">
+                        <h2 class="accordion-header" id="heading{{ i }}">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                [attr.data-bs-target]="'#collapse' + i" [attr.aria-expanded]="i === 0 ? 'true' : 'false'">
+                                <strong>Day {{ day.dayNumber }}: {{ day.title }}</strong>
+                            </button>
+                        </h2>
+                        <div id="collapse{{ i }}" class="accordion-collapse collapse" [class.show]="i === 0"
+                            data-bs-parent="#tripAccordion">
+                            <div class="accordion-body">
+                                <h5>🌅 Morning</h5>
+                                <p>{{ day.morning }}</p>
+                                <h5>🌞 Afternoon</h5>
+                                <p>{{ day.afternoon }}</p>
+                                <h5>🌙 Evening</h5>
+                                <p>{{ day.evening }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Travel Tips -->
+            <div class="mt-5 p-4 bg-light border rounded">
+                <h4>🛎 Important Travel Tips</h4>
+                <ul>
+                    <li *ngFor="let tip of itinerary.travelTips" [innerHTML]="tip"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
